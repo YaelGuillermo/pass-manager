@@ -1,38 +1,44 @@
 <template>
-  <div>
-    <h2>User Registration</h2>
-    <!-- Formulario de registro de usuario -->
+  <div class="p-4"> <!-- Agregamos padding al contenedor principal -->
+    <h2 class="text-2xl text-gray-700 mb-4">User Registration</h2> <!-- Tamaño del texto y margen inferior -->
     <form @submit.prevent="saveUser">
-      <div>
-        <label for="nickname">Nickname:</label>
-        <input type="text" v-model="nickname" id="nickname" required>
+      <div class="mb-4"> <!-- Margen inferior -->
+        <label for="nickname" class="block text-xs font-medium text-gray-700 mb-1">Nickname</label> <!-- Margen inferior para el texto y para el input -->
+        <input
+          type="text"
+          v-model="nickname"
+          id="nickname"
+          placeholder="Nickname"
+          class="w-full rounded-md border-gray-200 shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500" 
+          required
+        />
+      </div>
+      <div class="mb-4"> <!-- Margen inferior -->
+        <label for="birthdate" class="block text-xs font-medium text-gray-700 mb-1">Birthdate</label> <!-- Margen inferior para el texto y para el input -->
+        <input type="date" v-model="birthdate" id="birthdate" class="w-full rounded-md border-gray-200 shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500" required /> <!-- Clases para el ancho, bordes, sombra y estilo de foco -->
       </div>
       <div>
-        <label for="birthdate">Birthdate:</label>
-        <input type="date" v-model="birthdate" id="birthdate" required>
-      </div>
-      <div>
-        <button type="submit">Save</button>
+        <button type="submit" class="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600">Save</button> <!-- Clases para el color de fondo, color de texto, padding y bordes redondeados, y hover -->
       </div>
     </form>
 
-    <div>
-      <h2>Users</h2>
-      <table>
+    <div class="mt-8"> <!-- Margen superior -->
+      <h2 class="text-2xl text-gray-700 mb-4">Users</h2> <!-- Tamaño del texto y margen inferior -->
+      <table class="w-full border-collapse"> <!-- Ancho completo y colapsado de bordes -->
         <thead>
           <tr>
-            <th>Nickname</th>
-            <th>Birthdate</th>
-            <th>Actions</th>
+            <th class="text-left px-4 py-2 bg-gray-100">Nickname</th> <!-- Alineación del texto a la izquierda, padding, fondo gris claro -->
+            <th class="text-left px-4 py-2 bg-gray-100">Birthdate</th> <!-- Alineación del texto a la izquierda, padding, fondo gris claro -->
+            <th class="text-left px-4 py-2 bg-gray-100">Actions</th> <!-- Alineación del texto a la izquierda, padding, fondo gris claro -->
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(user, index) in users" :key="index">
-            <td>{{ user.nickname }}</td>
-            <td>{{ user.birthdate }}</td>
-            <td>
-              <button @click="editUser(index)">Edit</button>
-              <button @click="deleteUser(index)">Delete</button>
+          <tr v-for="(user, index) in users" :key="index" class="border-b"> <!-- Bordes inferiores -->
+            <td class="px-4 py-2">{{ user.nickname }}</td> <!-- Padding -->
+            <td class="px-4 py-2">{{ user.birthdate }}</td> <!-- Padding -->
+            <td class="px-4 py-2">
+              <button @click="editUser(index)" class="bg-blue-500 text-white px-2 py-1 rounded-md mr-2 hover:bg-blue-600">Edit</button> <!-- Color de fondo, color de texto, padding, bordes redondeados, margen derecho y hover -->
+              <button @click="deleteUser(index)" class="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600">Delete</button> <!-- Color de fondo, color de texto, padding, bordes redondeados y hover -->
             </td>
           </tr>
         </tbody>
@@ -43,12 +49,14 @@
 
 
 <script>
+
 export default {
   data() {
     return {
       nickname: '',
       birthdate: '',
-      users: []
+      users: [],
+      editingIndex: null
     };
   },
   methods: {
